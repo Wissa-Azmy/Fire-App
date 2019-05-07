@@ -8,6 +8,8 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseUI
+
 
 class ViewController: UIViewController {
     
@@ -15,10 +17,17 @@ class ViewController: UIViewController {
     @IBOutlet weak var passwordTxtField: UITextField!
     @IBOutlet weak var loginBtn: UIButton!
     
+    var authUI: FUIAuth?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        authUI = FUIAuth.defaultAuthUI()
+        authUI?.delegate = self
+        let providers = [FUIGoogleAuth()]
+        
+        authUI?.providers = providers
     }
 
 
@@ -34,13 +43,16 @@ class ViewController: UIViewController {
     
     @IBAction func loginBtnTapped(_ sender: UIButton) {
         if Auth.auth().currentUser == nil {
-            if let email = emailTxtField.text, let pass = passwordTxtField.text {
-                Auth.auth().signIn(withEmail: email, password: pass) { (user, error) in
-                    if error == nil {
-                        self.loginBtn.setTitle("Log Out", for: .normal)
-                    }
-                }
+            if let authVC = authUI?.authViewController() {
+                present(authVC, animated: true)
             }
+//            if let email = emailTxtField.text, let pass = passwordTxtField.text {
+//                Auth.auth().signIn(withEmail: email, password: pass) { (user, error) in
+//                    if error == nil {
+//                        self.loginBtn.setTitle("Log Out", for: .normal)
+//                    }
+//                }
+//            }
         } else {
             do {
                 try Auth.auth().signOut()
@@ -50,6 +62,12 @@ class ViewController: UIViewController {
         }
     }
     
-    
 }
 
+extension ViewController: FUIAuthDelegate {
+    func authUI(_ authUI: FUIAuth, didSignInWith authDataResult: AuthDataResult?, error: Error?) {
+        if error == nil {
+            loginBtn.setTitle("Log out", for: .normal)
+        }
+    }
+}
