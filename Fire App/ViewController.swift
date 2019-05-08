@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseUI
 import FirebaseDatabase
+import FirebaseStorage
 
 class ViewController: UIViewController {
     
@@ -18,8 +19,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var loginBtn: UIButton!
     
     var authUI: FUIAuth?
-    var DBReference: DatabaseReference?
-    
+    var DBReference: DatabaseReference!
+    var StorageReference: StorageReference!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,34 +32,66 @@ class ViewController: UIViewController {
         authUI?.providers = providers
         
         DBReference = Database.database().reference()
+        StorageReference = Storage.storage().reference()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
         if Auth.auth().currentUser != nil {
-            DBReference?.child("games").child("1").setValue(["name": "first", "score": 10])
+            DBReference.child("games").child("2").setValue(["name": "second", "score": 15])
             // Updating db values
-//            DBReference?.child("games").child("1").child("name").setValue("new name")
-//            DBReference?.child("games/1/name").setValue("new name")
-//            DBReference?.child("games/1").setValue(["name": "updated name", "score": 10])
+//            DBReference.child("games").child("1").child("name").setValue("new name")
+//            DBReference.child("games/1/name").setValue("new name")
+//            DBReference.child("games/1").setValue(["name": "updated name", "score": 10])
 //            let childUpdates = ["games/1/name": "updated name", "games/1/score": nil] as [String: Any]
-//            DBReference?.updateChildValues(childUpdates)
+//            DBReference.updateChildValues(childUpdates)
             
             // Deleting a value
-//            DBReference?.child("games/1/name").setValue(nil)
-//            DBReference?.child("games/1/name").removeValue()
+//            DBReference.child("games/1/name").setValue(nil)
+//            DBReference.child("games/1/name").removeValue()
+        }
+    }
+    
+    private func uploadDataToFirebaseCloudStorage(){
+        let gamekey = DBReference.child("games/2").key  // Get object id
+        let filename = "\(gamekey!).png"
+        let fileReference = StorageReference.child(filename)
+        let meta = StorageMetadata()
+        meta.contentType = "image/png"
+        
+        // Upload a file using its URL whithout loading it to memory
+//        let fileURL = Bundle.main.url(forResource: "Moharebs", withExtension: "jpg")
+//
+//        fileReference.putFile(from: fileURL!, metadata: meta) { (meta, error) in
+//            if error == nil {
+//                self.DBReference.child("games/1/image").setValue(filename)
+//            }
+//        }
+        
+        // Uploading DataFile after loading its data to memory
+        if let img = UIImage(named: "Steve.jpg") {
+            let pngImg = img.pngData()
+            fileReference.putData(pngImg!, metadata: meta) { (meta, error) in
+                if error == nil {
+                    self.DBReference.child("games/2/image").setValue(filename)
+                }
+            }
         }
     }
 
 
     @IBAction func createUserBtnTapped(_ sender: UIButton) {
-        if let email = emailTxtField.text, let pass = passwordTxtField.text {
-            Auth.auth().createUser(withEmail: email, password: pass) { (response, error) in
-                print(response?.user.email ?? "User was not created.")
-                print(response?.user.uid ?? "No user id found.")
-            }
-        }
+        
+        uploadDataToFirebaseCloudStorage()
+        
+//        if let email = emailTxtField.text, let pass = passwordTxtField.text {
+//            Auth.auth().createUser(withEmail: email, password: pass) { (response, error) in
+//                print(response?.user.email ?? "User was not created.")
+//                print(response?.user.uid ?? "No user id found.")
+//            }
+//        }
     }
     
     

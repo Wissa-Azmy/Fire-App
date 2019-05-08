@@ -14,6 +14,8 @@
 		294611A82280634D0001B5C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 294611A72280634D0001B5C3 /* Assets.xcassets */; };
 		294611AB2280634D0001B5C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 294611A92280634D0001B5C3 /* LaunchScreen.storyboard */; };
 		294611B3228065420001B5C3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 294611B2228065420001B5C3 /* GoogleService-Info.plist */; };
+		294611B72282FC6A0001B5C3 /* Moharebs.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 294611B62282FC6A0001B5C3 /* Moharebs.jpg */; };
+		294611B92282FE180001B5C3 /* Steve.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 294611B82282FE180001B5C3 /* Steve.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		294611AA2280634D0001B5C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		294611AC2280634D0001B5C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		294611B2228065420001B5C3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		294611B62282FC6A0001B5C3 /* Moharebs.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Moharebs.jpg; sourceTree = "<group>"; };
+		294611B82282FE180001B5C3 /* Steve.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Steve.jpg; sourceTree = "<group>"; };
 		5EF24E5E9D7489FDC8E51DE5 /* Pods-Fire App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fire App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fire App/Pods-Fire App.release.xcconfig"; sourceTree = "<group>"; };
 		A763DE3DD9D04AFB28C6A946 /* Pods-Fire App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fire App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fire App/Pods-Fire App.debug.xcconfig"; sourceTree = "<group>"; };
 		C881B373EDA13E50E6BF3BE8 /* Pods_Fire_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fire_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +72,8 @@
 				294611A42280634C0001B5C3 /* Main.storyboard */,
 				294611A72280634D0001B5C3 /* Assets.xcassets */,
 				294611A92280634D0001B5C3 /* LaunchScreen.storyboard */,
+				294611B62282FC6A0001B5C3 /* Moharebs.jpg */,
+				294611B82282FE180001B5C3 /* Steve.jpg */,
 				294611AC2280634D0001B5C3 /* Info.plist */,
 				294611B2228065420001B5C3 /* GoogleService-Info.plist */,
 			);
@@ -152,10 +158,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				294611B72282FC6A0001B5C3 /* Moharebs.jpg in Resources */,
 				294611AB2280634D0001B5C3 /* LaunchScreen.storyboard in Resources */,
 				294611B3228065420001B5C3 /* GoogleService-Info.plist in Resources */,
 				294611A82280634D0001B5C3 /* Assets.xcassets in Resources */,
 				294611A62280634C0001B5C3 /* Main.storyboard in Resources */,
+				294611B92282FE180001B5C3 /* Steve.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
