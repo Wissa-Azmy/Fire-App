@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseUI
-
+import FirebaseDatabase
 
 class ViewController: UIViewController {
     
@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var loginBtn: UIButton!
     
     var authUI: FUIAuth?
+    var DBReference: DatabaseReference?
     
 
     override func viewDidLoad() {
@@ -28,6 +29,26 @@ class ViewController: UIViewController {
         let providers: [FUIAuthProvider] = [FUIGoogleAuth(), FUIEmailAuth()]
         
         authUI?.providers = providers
+        
+        DBReference = Database.database().reference()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
+        if Auth.auth().currentUser != nil {
+            DBReference?.child("games").child("1").setValue(["name": "first", "score": 10])
+            // Updating db values
+//            DBReference?.child("games").child("1").child("name").setValue("new name")
+//            DBReference?.child("games/1/name").setValue("new name")
+//            DBReference?.child("games/1").setValue(["name": "updated name", "score": 10])
+//            let childUpdates = ["games/1/name": "updated name", "games/1/score": nil] as [String: Any]
+//            DBReference?.updateChildValues(childUpdates)
+            
+            // Deleting a value
+//            DBReference?.child("games/1/name").setValue(nil)
+//            DBReference?.child("games/1/name").removeValue()
+        }
     }
 
 
