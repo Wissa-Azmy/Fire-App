@@ -50,7 +50,9 @@ class ViewController: UIViewController {
 
     @IBAction func createUserBtnTapped(_ sender: UIButton) {
 //        createUserUsingFirebaseAuth()
-        uploadDataToFirebaseCloudStorage()
+//        uploadDataToFirebaseCloudStorage()
+//        retrieveDataFromFBCloudStorage()
+        retrieveFileURLFromFBCloudStorage()
     }
     
     
@@ -166,7 +168,6 @@ extension ViewController {
         }
     }
     
-    
     private func uploadFileToFirebaseCloudStorage(){
         let gamekey = DBReference.child("games/1").key  // Get object id
         let filename = "\(gamekey!).png"
@@ -183,4 +184,49 @@ extension ViewController {
             }
         }
     }
+    
+    private func retrieveFileURLFromFBCloudStorage() {
+        DBReference.child("games/1/image").observeSingleEvent(of: .value) { (snapshot) in
+            if let value = snapshot.value as? String {
+                let fileInstance = self.StorageReference.child(value)
+                fileInstance.downloadURL(completion: { (url, error) in
+                    if let urlString = url?.absoluteString {
+                        print(urlString)
+                    }
+                })
+            }
+        }
+    }
+    
+    private func retrieveDataFromFBCloudStorage() {
+        DBReference.child("games/1/image").observeSingleEvent(of: .value) { (snapshot) in
+            if let value = snapshot.value as? String {
+                let fileInstance = self.StorageReference.child(value)
+                fileInstance.getData(maxSize: 10000000, completion: { (data, error) in
+                    if error == nil {
+                        let img = UIImage(data: data!)
+                        DispatchQueue.main.async {
+                            let imageView = UIImageView(frame: self.view.frame)
+                            imageView.image = img
+                            self.view.addSubview(imageView)
+                        }
+                    } else {
+                        print(error?.localizedDescription ?? "")
+                    }
+                })
+            }
+        }
+    }
+    
+    private func deleteFireFromFBCloudStorage() {
+        DBReference.child("games/1/image").observeSingleEvent(of: .value) { (snapshot) in
+            if let value = snapshot.value as? String {
+                let fileInstance = self.StorageReference.child(value)
+                fileInstance.delete(completion: { (error) in
+                    // handle error
+                })
+            }
+        }
+    }
+    
 }
