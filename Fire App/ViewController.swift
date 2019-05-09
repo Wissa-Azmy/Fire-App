@@ -55,13 +55,23 @@ class ViewController: UIViewController {
 //        uploadDataToFirebaseCloudStorage()
 //        retrieveDataFromFBCloudStorage()
 //        retrieveFileURLFromFBCloudStorage()
-        addDataToFirestore()
+//        addDataToFirestore()
+//        retrieveDataFromFirestore()
+        retrieveDataFromFirestoreWithCondition()
     }
     
     
     @IBAction func loginBtnTapped(_ sender: UIButton) {
 //        loginUsingFirebaseAuth()
         loginUsingFirebaseAuthUI()
+    }
+    
+    
+    fileprivate func isUserAuthorized() -> Bool {
+        if Auth.auth().currentUser != nil {
+            return true
+        }
+        return false
     }
     
 }
@@ -243,5 +253,31 @@ extension ViewController {
         firestore.collection("winner").addDocument(data:["game": 2, "user": "Farhat"])
         let doc = firestore.collection("winner").document()
         doc.setData(["game": 3, "user": "Azmy"])
+    }
+    
+    fileprivate func retrieveDataFromFirestore() {
+        if isUserAuthorized() {
+            firestore.collection("winner").getDocuments { (snapshot, error) in
+                if error == nil {
+                    for doc in (snapshot?.documents)! {
+                        print(doc.data())
+                    }
+                }
+            }
+        }
+    }
+    
+    fileprivate func retrieveDataFromFirestoreWithCondition() {
+        if isUserAuthorized() {
+            firestore.collection("winner")
+                .whereField("game", isEqualTo: 2)
+                .getDocuments { (snapshot, error) in
+                if error == nil {
+                    for doc in (snapshot?.documents)! {
+                        print(doc.data())
+                    }
+                }
+            }
+        }
     }
 }
