@@ -11,6 +11,7 @@ import FirebaseAuth
 import FirebaseUI
 import FirebaseDatabase
 import FirebaseStorage
+import FirebaseFirestore
 
 class ViewController: UIViewController {
     
@@ -21,6 +22,7 @@ class ViewController: UIViewController {
     var authUI: FUIAuth?
     var DBReference: DatabaseReference!
     var StorageReference: StorageReference!
+    var firestore: Firestore!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +31,7 @@ class ViewController: UIViewController {
         
         DBReference = Database.database().reference()
         StorageReference = Storage.storage().reference()
-        
+        firestore = Firestore.firestore()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -52,7 +54,8 @@ class ViewController: UIViewController {
 //        createUserUsingFirebaseAuth()
 //        uploadDataToFirebaseCloudStorage()
 //        retrieveDataFromFBCloudStorage()
-        retrieveFileURLFromFBCloudStorage()
+//        retrieveFileURLFromFBCloudStorage()
+        addDataToFirestore()
     }
     
     
@@ -150,7 +153,7 @@ extension ViewController {
 
 // MARK: - Firebase Cloud Storage
 extension ViewController {
-    private func uploadDataToFirebaseCloudStorage(){
+    private func uploadDataToFirebaseCloudStorage() {
         let gamekey = DBReference.child("games/2").key  // Get object id
         let filename = "\(gamekey!).png"
         let fileReference = StorageReference.child(filename)
@@ -168,7 +171,7 @@ extension ViewController {
         }
     }
     
-    private func uploadFileToFirebaseCloudStorage(){
+    private func uploadFileToFirebaseCloudStorage() {
         let gamekey = DBReference.child("games/1").key  // Get object id
         let filename = "\(gamekey!).png"
         let fileReference = StorageReference.child(filename)
@@ -218,7 +221,7 @@ extension ViewController {
         }
     }
     
-    private func deleteFireFromFBCloudStorage() {
+    private func deleteFileFromFBCloudStorage() {
         DBReference.child("games/1/image").observeSingleEvent(of: .value) { (snapshot) in
             if let value = snapshot.value as? String {
                 let fileInstance = self.StorageReference.child(value)
@@ -229,4 +232,16 @@ extension ViewController {
         }
     }
     
+}
+
+
+
+// MARK: - Firebase Firestore
+extension ViewController {
+    fileprivate func addDataToFirestore() {
+        firestore.collection("winner").document("100").setData(["game": 1, "user": "Wissa"])
+        firestore.collection("winner").addDocument(data:["game": 2, "user": "Farhat"])
+        let doc = firestore.collection("winner").document()
+        doc.setData(["game": 3, "user": "Azmy"])
+    }
 }
