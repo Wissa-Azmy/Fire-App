@@ -57,7 +57,8 @@ class ViewController: UIViewController {
 //        retrieveFileURLFromFBCloudStorage()
 //        addDataToFirestore()
 //        retrieveDataFromFirestore()
-        retrieveDataFromFirestoreWithCondition()
+//        retrieveDataFromFirestoreWithCondition()
+        updateDocDataInFirestore()
     }
     
     
@@ -279,5 +280,20 @@ extension ViewController {
                 }
             }
         }
+    }
+    
+    
+    fileprivate func updateDocDataInFirestore(docId: String = "100") {
+        // Get the reference of the document to be updated
+        let doc = firestore.collection("winner").document(docId)
+        
+        // Replace Document data with new fields (destructive update)
+        doc.updateData(["game": 1, "user": "wissa"])
+        
+        // Add a new scores field with a dictionary value to the doc (merge update)
+        doc.setData(["scores": ["top": 30, "low": 3]], merge: true)
+        
+        // Update dictionary data using the dot(.) notation
+        doc.updateData(["scores.top": 35])
     }
 }
