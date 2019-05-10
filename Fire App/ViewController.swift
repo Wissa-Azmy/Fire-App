@@ -282,7 +282,6 @@ extension ViewController {
         }
     }
     
-    
     fileprivate func updateDocDataInFirestore(docId: String = "100") {
         // Get the reference of the document to be updated
         let doc = firestore.collection("winner").document(docId)
@@ -295,5 +294,23 @@ extension ViewController {
         
         // Update dictionary data using the dot(.) notation
         doc.updateData(["scores.top": 35])
+    }
+    
+    // Hint: deleting collections is not possible through mobile api
+    fileprivate func deleteDataFromFirestore() {
+        let doc = firestore.collection("winner").document("100")
+        
+        // Delete a single field of a document
+        doc.updateData(["scores": FieldValue.delete()])
+        
+        // Delete a full document
+        doc.delete()
+        
+        // Bulk delete a goup of documents
+        firestore.collection("winner").getDocuments { (snapshot, error) in
+            if error == nil {
+                snapshot?.documents.forEach({$0.reference.delete()})
+            }
+        }
     }
 }
