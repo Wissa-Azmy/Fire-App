@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var emailTxtField: UITextField!
     @IBOutlet weak var passwordTxtField: UITextField!
     @IBOutlet weak var loginBtn: UIButton!
+    @IBOutlet weak var statusTxtLbl: UILabel!
     
     var authUI: FUIAuth?
     var DBReference: DatabaseReference!
@@ -27,6 +28,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        statusTxtLbl.isHidden = true
+        
         configureAuthUI()
         
         DBReference = Database.database().reference()
@@ -36,35 +39,41 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        
-        if Auth.auth().currentUser != nil {
-            // Create Object
-            createObjectUsingFirebaseDatabase()
-            
-            // Update a value
-            updateFBDatabaseData()
-            
-            // Deleting a value
-//            deleteDatafromFBDatabase()
-        }
     }
 
 
     @IBAction func createUserBtnTapped(_ sender: UIButton) {
-//        createUserUsingFirebaseAuth()
-//        uploadDataToFirebaseCloudStorage()
-//        retrieveDataFromFBCloudStorage()
-//        retrieveFileURLFromFBCloudStorage()
-//        addDataToFirestore()
-//        retrieveDataFromFirestore()
-//        retrieveDataFromFirestoreWithCondition()
-        updateDocDataInFirestore()
+        createUserUsingFirebaseAuth()
     }
     
     
     @IBAction func loginBtnTapped(_ sender: UIButton) {
 //        loginUsingFirebaseAuth()
         loginUsingFirebaseAuthUI()
+    }
+    
+    
+    @IBAction func fireBtnTapped(_ sender: UIButton) {
+        if Auth.auth().currentUser != nil {
+            statusTxtLbl.isHidden = false
+            
+            createObjectUsingFirebaseDatabase()
+            updateFBDatabaseData()
+            deleteDatafromFBDatabase()
+            
+            uploadDataToFirebaseCloudStorage()
+            uploadFileToFirebaseCloudStorage()
+            retrieveDataFromFBCloudStorage()
+            retrieveFileURLFromFBCloudStorage()
+            
+            addDataToFirestore()
+            retrieveDataFromFirestore()
+            retrieveDataFromFirestoreWithCondition()
+            updateDocDataInFirestore()
+            deleteDataFromFirestore()
+        } else {
+            print("Login First to run Firebase methods.")
+        }
     }
     
     
@@ -97,6 +106,8 @@ extension ViewController: FUIAuthDelegate {
                 print(response?.user.email ?? "User was not created.")
                 print(response?.user.uid ?? "No user id found.")
             }
+        } else {
+            print("Email or Password is missing.")
         }
     }
     
@@ -147,16 +158,16 @@ extension ViewController {
     }
     
     func updateFBDatabaseData() {
-            DBReference.child("games").child("1").child("name").setValue("new name")
-//            DBReference.child("games/1/name").setValue("new name")
-//            DBReference.child("games/1").setValue(["name": "updated name", "score": 10])
-//            let childUpdates = ["games/1/name": "updated name", "games/1/score": nil] as [String: Any]
-//            DBReference.updateChildValues(childUpdates)
+        DBReference.child("games").child("1").child("name").setValue("new name")
+        DBReference.child("games/1/name").setValue("new name")
+        DBReference.child("games/1").setValue(["name": "updated name", "score": 10])
+        let childUpdates = ["games/1/name": "wissa", "games/1/score": nil] as [String: Any]
+        DBReference.updateChildValues(childUpdates)
     }
     
     func deleteDatafromFBDatabase() {
         DBReference.child("games/1/name").setValue(nil)
-//        DBReference.child("games/1/name").removeValue()
+        DBReference.child("games/2/name").removeValue()
     }
 }
 
@@ -306,7 +317,7 @@ extension ViewController {
         // Delete a full document
         doc.delete()
         
-        // Bulk delete a goup of documents
+        // Bulk delete a group of documents
         firestore.collection("winner").getDocuments { (snapshot, error) in
             if error == nil {
                 snapshot?.documents.forEach({$0.reference.delete()})
