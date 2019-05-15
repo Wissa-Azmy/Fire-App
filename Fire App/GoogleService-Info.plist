@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>674587041533-mi5fc0bgi980am6l8hvq9jbi5mqm89gt.apps.googleusercontent.com</string>
+	<string>674587041533-t7vg8dlnjjopidmfgkcqouq0esc2kvbg.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.674587041533-mi5fc0bgi980am6l8hvq9jbi5mqm89gt</string>
+	<string>com.googleusercontent.apps.674587041533-t7vg8dlnjjopidmfgkcqouq0esc2kvbg</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCu-vGWLzBF401ViDF3RWmsm0EF1JcyxKk</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.wissa.Fire-App</string>
+	<string>com.57357.Fire-App-57</string>
 	<key>PROJECT_ID</key>
 	<string>fire-app-b8eb2</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +29,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:674587041533:ios:294e797cae271c6a</string>
+	<string>1:674587041533:ios:691d9ef1c33d2df8</string>
 	<key>DATABASE_URL</key>
 	<string>https://fire-app-b8eb2.firebaseio.com</string>
 </dict>

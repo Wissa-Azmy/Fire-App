@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var emailTxtField: UITextField!
     @IBOutlet weak var passwordTxtField: UITextField!
+    @IBOutlet weak var phoneTxtField: UITextField!
+    @IBOutlet weak var verificationCodeTxtField: UITextField!
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var statusTxtLbl: UILabel!
     
@@ -43,9 +45,19 @@ class ViewController: UIViewController {
 
 
     @IBAction func createUserBtnTapped(_ sender: UIButton) {
-        createUserUsingFirebaseAuth()
+//        createUserUsingFirebaseAuth()
+        print("\n\n\n Create Button Tapped.")
+        createUserUsingPhoneAuth()
     }
     
+    // Verify user phone number
+    @IBAction func verifyBtnTapped(_ sender: UIButton) {
+        if let code = verificationCodeTxtField.text, code != "" {
+            if let UserCredential = createUserCredentials(verificationCode: code) {
+                signInUser(withCredential: UserCredential)
+            }
+        }
+    }
     
     @IBAction func loginBtnTapped(_ sender: UIButton) {
 //        loginUsingFirebaseAuth()
@@ -145,6 +157,50 @@ extension ViewController: FUIAuthDelegate {
     func authUI(_ authUI: FUIAuth, didSignInWith authDataResult: AuthDataResult?, error: Error?) {
         if error == nil {
             loginBtn.setTitle("Log out", for: .normal)
+        }
+    }
+}
+
+
+
+// MARK: - Phone Authentication
+extension ViewController {
+    fileprivate func createUserUsingPhoneAuth() {
+        if let phoneNumber = phoneTxtField.text, phoneNumber != "" {
+            PhoneAuthProvider.provider().verifyPhoneNumber("+201285579610", uiDelegate: nil) { (verificationID, error) in
+                if let error = error {
+                    print("\n\n\n\n\n Firebase Error: ")
+                    print(error.localizedDescription)
+                    print("\n\n\n\n")
+                    return
+                }
+                // Sign in using the verificationID and the code sent to the user
+                // ...
+                UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
+            }
+        }
+        
+    }
+    
+    // Create a FIRPhoneAuthCredential object from the verification code and verification ID
+    fileprivate func createUserCredentials(verificationCode: String) -> PhoneAuthCredential? {
+        
+        guard let verificationID = UserDefaults.standard.string(forKey: "authVerificationID") else {return nil}
+        
+        let credential = PhoneAuthProvider.provider().credential(
+            withVerificationID: verificationID,
+            verificationCode: verificationCode)
+        return credential
+    }
+    
+    fileprivate func signInUser(withCredential credential: PhoneAuthCredential) {
+        Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            // User is signed in
+            print("Voilla, User is Signed In.")
         }
     }
 }

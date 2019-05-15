@@ -23,7 +23,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.674587041533-mi5fc0bgi980am6l8hvq9jbi5mqm89gt</string>
+				<string>com.googleusercontent.apps.674587041533-t7vg8dlnjjopidmfgkcqouq0esc2kvbg</string>
 			</array>
 		</dict>
 	</array>
@@ -31,6 +31,10 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
