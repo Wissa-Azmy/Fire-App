@@ -18,14 +18,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="82s-VE-vrg">
-                                <rect key="frame" x="20" y="553" width="374" height="41"/>
-                                <string key="text">Firebase methods are running ....
-Check your Xcode and Firebase consols.😉</string>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="27" translatesAutoresizingMaskIntoConstraints="NO" id="fBD-jZ-9bI">
                                 <rect key="frame" x="107" y="60" width="200" height="429"/>
                                 <subviews>
@@ -89,18 +81,27 @@ Check your Xcode and Firebase consols.😉</string>
                                     <constraint firstItem="0ah-VF-4d4" firstAttribute="leading" secondItem="fBD-jZ-9bI" secondAttribute="leading" constant="10" id="Mpk-QA-osD"/>
                                     <constraint firstItem="t2q-OO-LQ1" firstAttribute="leading" secondItem="fBD-jZ-9bI" secondAttribute="leading" constant="10" id="NcD-V2-0bd"/>
                                     <constraint firstItem="Jtg-2V-EDA" firstAttribute="leading" secondItem="fBD-jZ-9bI" secondAttribute="leading" constant="10" id="Nku-jr-txr"/>
+                                    <constraint firstAttribute="height" constant="429" id="Vyk-VP-JZ0"/>
                                     <constraint firstItem="l3a-j6-CwC" firstAttribute="leading" secondItem="fBD-jZ-9bI" secondAttribute="leading" constant="10" id="gJm-u7-sCR"/>
                                     <constraint firstItem="iyW-a8-vUk" firstAttribute="leading" secondItem="fBD-jZ-9bI" secondAttribute="leading" constant="10" id="kFJ-D0-0VV"/>
                                     <constraint firstItem="4Tb-Kh-yzv" firstAttribute="leading" secondItem="fBD-jZ-9bI" secondAttribute="leading" constant="10" id="vqT-R1-enc"/>
                                 </constraints>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="82s-VE-vrg">
+                                <rect key="frame" x="20" y="718" width="374" height="41"/>
+                                <string key="text">Firebase methods are running ....
+Check your Xcode and Firebase consols.😉</string>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="82s-VE-vrg" firstAttribute="centerX" secondItem="fBD-jZ-9bI" secondAttribute="centerX" id="G8F-Q3-RRU"/>
+                            <constraint firstItem="82s-VE-vrg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="0wK-m8-oBN"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="82s-VE-vrg" secondAttribute="bottom" constant="103" id="4UE-Bj-KC7"/>
                             <constraint firstItem="fBD-jZ-9bI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="HOT-jf-93J"/>
-                            <constraint firstItem="82s-VE-vrg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="NWF-if-aZ2"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="82s-VE-vrg" secondAttribute="bottom" constant="268" id="VJN-ya-5qw"/>
+                            <constraint firstItem="82s-VE-vrg" firstAttribute="centerX" secondItem="fBD-jZ-9bI" secondAttribute="centerX" id="eN6-qS-Kt4"/>
                             <constraint firstItem="fBD-jZ-9bI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="r0Q-0G-2mR"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
