@@ -42,22 +42,7 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
     }
-
-
-    @IBAction func createUserBtnTapped(_ sender: UIButton) {
-//        createUserUsingFirebaseAuth()
-        print("\n\n\n Create Button Tapped.")
-        createUserUsingPhoneAuth()
-    }
     
-    // Verify user phone number
-    @IBAction func verifyBtnTapped(_ sender: UIButton) {
-        if let code = verificationCodeTxtField.text, code != "" {
-            if let UserCredential = createUserCredentials(verificationCode: code) {
-                signInUser(withCredential: UserCredential)
-            }
-        }
-    }
     
     @IBAction func loginBtnTapped(_ sender: UIButton) {
 //        loginUsingFirebaseAuth()
@@ -165,6 +150,22 @@ extension ViewController: FUIAuthDelegate {
 
 // MARK: - Phone Authentication
 extension ViewController {
+    
+    @IBAction func createUserBtnTapped(_ sender: UIButton) {
+        //        createUserUsingFirebaseAuth()
+        print("\n\n\n Create Button Tapped.")
+        createUserUsingPhoneAuth()
+    }
+    
+    // Verify user phone number
+    @IBAction func verifyBtnTapped(_ sender: UIButton) {
+        if let code = verificationCodeTxtField.text, code != "" {
+            if let UserCredential = createUserCredentials(verificationCode: code) {
+                signInUser(withCredential: UserCredential)
+            }
+        }
+    }
+    
     fileprivate func createUserUsingPhoneAuth() {
         if let phoneNumber = phoneTxtField.text, phoneNumber != "" {
             PhoneAuthProvider.provider().verifyPhoneNumber("+201285579610", uiDelegate: nil) { (verificationID, error) in

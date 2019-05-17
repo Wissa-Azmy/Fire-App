@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        application.registerForRemoteNotifications()
+//        application.registerForRemoteNotifications()
         FirebaseApp.configure()
         return true
     }
@@ -55,7 +55,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-    
+}
+
+
+// MARK: - Remote Notification
+extension AppDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let firebaseAuth = Auth.auth()
         print("\n\n\nDid Register for remote Notifications\n\n\n")
@@ -72,6 +76,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Firebase can't handle notifications")
         }
     }
-
 }
 
